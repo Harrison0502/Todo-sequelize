@@ -46,6 +46,26 @@ app.post('/users/register', (req, res) => {
       .catch(err => console.log(err))
   })
 })
+app.get('/users/logout', (req, res) => {
+  res.redirect('/')
+  console.log('logout')
+})
+
+
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.findByPk(id)
+    .then(todo => res.render('detail', { todo: todo.toJSON() }))
+    .catch(error => console.log(error))
+})
+
+app.get('/todos/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Todo.findByPk(id)
+    .then(todo => res.render('edit', { todo: todo.toJSON() }))
+    .catch(error => console.log(error))
+})
+
 
 
 app.listen(PORT, () => {
